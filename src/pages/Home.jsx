@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { auth } from "../firebaseConfig";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { RegisterProducts } from "./RegisterProducts";
 
 function Home() {
   const [userEmail, setUserEmail] = useState("");
+  const [menu, setMenu] = useState(0)
   useEffect(() => {
     const user = auth.currentUser;
     if (user) {
@@ -66,10 +68,10 @@ function Home() {
 
         </div>
         <div className="flex w-screen justify-between items-center px-8">
-          <Button text="Na validade" />
-          <Button text="Próximos de vencer" />
-          <Button text="Vencidos" />
-          <Button text="Cadastrar novos" />
+          <Button text="Na validade" onClick={() => setMenu(0) } />
+          <Button text="Próximos de vencer" onClick={() => setMenu(1) } />
+          <Button text="Vencidos" onClick={() => setMenu(2) } />
+          <Button text="Cadastrar novos" onClick={() => setMenu(3) } />
         </div>
         <div className="w-28 h-24  flex justify-center items-center cursor-pointer"
           onClick={handleLogout}
@@ -77,6 +79,9 @@ function Home() {
           <LogOut className="w-10 h-10 text-blue-dark hover:text-red-600 transition" />
         </div>
       </nav>
+      <div>
+        {menu === 3 && <RegisterProducts />}
+      </div>
     </div>
   );
 };

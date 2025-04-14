@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { auth } from "../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-
+import { Eye, EyeOff } from "lucide-react";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false)
 
   const getFriendlyErrorMessage = (errorCode) => {
     const errorMessages = {
@@ -33,6 +34,9 @@ const Register = () => {
         text: "✅ Usuário cadastrado com sucesso!",
         type: "success",
       });
+
+      setEmail("");
+      setPassword("");
     } catch (error) {
       setMessage({
         text: getFriendlyErrorMessage(error.code),
@@ -63,15 +67,23 @@ const Register = () => {
               className=" bg-blue-dark h-14 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Crie uma senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="bg-blue-dark h-14 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                required
+              />
+              <div
+                className="absolute inset-y-0 right-4 flex items-center cursor-pointer text-gray-500 hover:text-blue-600 transition"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </div>
+            </div>
 
-            <input
-              type="password"
-              placeholder="Crie uma senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="bg-blue-dark h-14 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-              required
-            />
             <button type="submit" className="rounded-lg bg-blue-dark h-14 text-white hover:bg-blue-400 cursor-pointer">
               Cadastrar
             </button>
@@ -79,7 +91,7 @@ const Register = () => {
 
           {message && (
             <div
-              className={`p-3 text-white font-bold rounded-md ${message.type === "success" ? "bg-green-500" : "bg-red-500"
+              className={`p-2 mt-2 text-white font-bold rounded-md ${message.type === "success" ? "bg-green-500" : "bg-red-500"
                 }`}>
               {message.text}
             </div>

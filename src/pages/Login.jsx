@@ -2,12 +2,14 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,7 +29,7 @@ const Login = () => {
       text-2xl font-extrabold">
         venceFácil
       </div>
-      <div className="h-full flex justify-center items-center">
+      <div className=" h-full flex justify-center items-center">
         <div className="bg-transparent p-8 text-white  rounded-lg shadow-[6px_6px_27px_10px_rgba(0,_0,_0,_0.1)] w-96 h-96 justify-center flex items-center flex-col">
           <h2 className="text-2xl font-bold mb-6 text-center text-[#004AAD]">Faça Login</h2>
 
@@ -40,29 +42,43 @@ const Login = () => {
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="flex flex-col w-full gap-2">
-            <input
-              type="email"
-              placeholder="Digite seu e-mail"
-              className={`flex w-full h-14 pl-3 border border-gray-300 rounded-md bg-blue-dark ${message && "border-2 border-red-500"}`}
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value)
-                setMessage(null)
-              }}
-              required
-            />
-            <input
-              type="password"
-              placeholder="Digite sua senha"
-              className={`w-full h-14 p-3 border border-gray-300 rounded-md bg-blue-dark ${message && "border-2 border-red-500"}`}
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value)
-                setMessage(null)
-              }}
-              required
-            />
+          <form onSubmit={handleLogin} className="relative  flex flex-col w-full gap-2">
+            <div>
+              <input
+                type="email"
+                placeholder="Digite seu e-mail"
+                className={`flex w-full h-14 pl-3 border border-gray-300 rounded-md bg-blue-dark ${message && "border-2 border-red-500"}`}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Digite sua senha"
+                className={`w-full h-14 p-3 border pr-12 border-gray-300 rounded-md bg-blue-dark ${message && "border-2 border-red-500"}`}
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value)
+                  setMessage(null)
+                }}
+
+                required
+
+              />
+
+              <div
+                className="absolute inset-y-0 right-4 flex items-center cursor-pointer text-white hover:text-blue-600 transition"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </div>
+            </div>
+
+
+
             <button
               type="submit"
               className="w-full h-14 p-3 rounded-md hover:transition bg-blue-dark hover:bg-blue-400 cursor-pointer"
