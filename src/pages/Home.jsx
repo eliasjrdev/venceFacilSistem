@@ -5,6 +5,8 @@ import { auth } from "../firebaseConfig";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { RegisterProducts } from "./RegisterProducts";
+import { ProductTable } from "../components/ProductTable";
+
 
 function Home() {
   const [userEmail, setUserEmail] = useState("");
@@ -68,20 +70,49 @@ function Home() {
 
         </div>
         <div className="flex w-screen justify-between items-center px-8">
-          <Button text="Na validade" onClick={() => setMenu(0) } />
-          <Button text="Próximos de vencer" onClick={() => setMenu(1) } />
-          <Button text="Vencidos" onClick={() => setMenu(2) } />
-          <Button text="Cadastrar novos" onClick={() => setMenu(3) } />
+          <button
+            onClick={() => setMenu(0)}
+            className={`px-4 py-2 rounded font-medium transition ${menu === 0 ? "bg-blue-600 text-white" : "bg-gray-100 text-blue-600 hover:bg-blue-100"
+              }`}
+          >
+            Todos os produtos
+          </button>
+
+          <button
+            onClick={() => setMenu(1)}
+            className={`px-4 py-2 rounded font-medium transition ${menu === 1 ? "bg-blue-600 text-white" : "bg-gray-100 text-blue-600 hover:bg-blue-100"
+              }`}
+          >
+            Próximos de vencer
+          </button>
+
+          <button
+            onClick={() => setMenu(2)}
+            className={`px-4 py-2 rounded font-medium transition ${menu === 2 ? "bg-blue-600 text-white" : "bg-gray-100 text-blue-600 hover:bg-blue-100"
+              }`}
+          >
+            Vencidos
+          </button>
+
+          <button
+            onClick={() => setMenu(3)}
+            className={`px-4 py-2 rounded font-medium transition ${menu === 3 ? "bg-blue-600 text-white" : "bg-gray-100 text-blue-600 hover:bg-blue-100"
+              }`}
+          >
+            Cadastrar novos
+          </button>
         </div>
         <div className="w-28 h-24  flex justify-center items-center cursor-pointer"
           onClick={handleLogout}
           title="Sair">
           <LogOut className="w-10 h-10 text-blue-dark hover:text-red-600 transition" />
         </div>
-      </nav>
+      </nav>   
       <div>
         {menu === 3 && <RegisterProducts />}
+        {[0, 1, 2].includes(menu) && <ProductTable filter={menu} />}
       </div>
+
     </div>
   );
 };
