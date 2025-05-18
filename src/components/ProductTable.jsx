@@ -10,7 +10,7 @@ import {
 import { db } from "../firebaseConfig";
 import dayjs from "dayjs";
 import { Pencil, Trash2 } from "lucide-react";
-import { Fragment } from "react";
+
 
 export function ProductTable({ filter }) {
     const [products, setProducts] = useState([]);
@@ -62,22 +62,32 @@ export function ProductTable({ filter }) {
 
     async function handleSaveEdit(id) {
         try {
+            if (!editValues.productName.trim() || !editValues.productLot.trim()) {
+                alert("Preencha todos os campos obrigatórios.");
+                return;
+            }
+
+            const parsedDate = dayjs(editValues.dateValidity, "YYYY-MM-DD", true);
+            if (!parsedDate.isValid()) {
+                alert("Data inválida. Verifique o formato.");
+                return;
+            }
+
             const ref = doc(db, "products", id);
-            const parsedDate = dayjs(editValues.dateValidity).toDate();
 
             await updateDoc(ref, {
-                productName: editValues.productName,
-                productLot: editValues.productLot,
-                dateValidity: parsedDate,
+                productName: editValues.productName.trim(),
+                productLot: editValues.productLot.trim(),
+                dateValidity: parsedDate.toDate(), 
             });
 
             const updated = products.map((p) =>
                 p.id === id
                     ? {
                         ...p,
-                        productName: editValues.productName,
-                        productLot: editValues.productLot,
-                        dateValidity: parsedDate,
+                        productName: editValues.productName.trim(),
+                        productLot: editValues.productLot.trim(),
+                        dateValidity: parsedDate.toDate(), 
                     }
                     : p
             );
@@ -85,9 +95,11 @@ export function ProductTable({ filter }) {
             setProducts(updated);
             setEditingProductId(null);
         } catch (err) {
+            console.error("Erro ao salvar:", err);
             alert("Erro ao salvar: " + err.message);
         }
     }
+
 
     return (
         <div>
@@ -168,10 +180,10 @@ export function ProductTable({ filter }) {
                                     ) : (
                                         <span
                                             className={`text-black text-sm font-semibold rounded-full px-3 py-1 inline-block text-center min-w-[160px] ${validade.isBefore(today)
-                                                    ? "bg-red-500"
-                                                    : diff <= 29
-                                                        ? "bg-yellow-500"
-                                                        : "bg-green-600"
+                                                ? "bg-red-500"
+                                                : diff <= 29
+                                                    ? "bg-yellow-500"
+                                                    : "bg-green-600"
                                                 }`}
                                         >
                                             {validade.isBefore(today)
