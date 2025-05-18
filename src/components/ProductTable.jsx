@@ -10,6 +10,7 @@ import {
 import { db } from "../firebaseConfig";
 import dayjs from "dayjs";
 import { Pencil, Trash2 } from "lucide-react";
+import { Fragment } from "react";
 
 export function ProductTable({ filter }) {
     const [products, setProducts] = useState([]);
@@ -126,7 +127,7 @@ export function ProductTable({ filter }) {
                         return (
                             <tr key={p.id} className=" hover:bg-gray-100 transition border-2">
                                 {editingProductId === p.id ? (
-                                    <>
+                                    <Fragment key={p.id}>
                                         <td className="border  p-2">
                                             <input
                                                 value={editValues.productName}
@@ -170,9 +171,9 @@ export function ProductTable({ filter }) {
                                                 Cancelar
                                             </button>
                                         </td>
-                                    </>
+                                    </Fragment>
                                 ) : (
-                                    <>
+                                    <Fragment key={p.id}>
                                         <td className="border p-2">{p.productName}</td>
                                         <td className="border p-2">{validade.format("DD/MM/YYYY")}</td>
                                         <td className="border p-2">{p.productLot}</td>
@@ -211,10 +212,10 @@ export function ProductTable({ filter }) {
                                             >
                                                 <Trash2 className="w-4 h-4" />
                                                 Excluir
-                                                
+
                                             </button>
                                         </td>
-                                    </>
+                                    </Fragment>
                                 )}
                             </tr>
                         );
