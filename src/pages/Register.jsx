@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { auth } from "../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
 
   const getFriendlyErrorMessage = (errorCode) => {
     const errorMessages = {
@@ -27,13 +32,11 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     setMessage("");
+    setLoading(true);
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      setMessage({
-        text: "✅ Usuário cadastrado com sucesso!",
-        type: "success",
-      });
+      navigate("/home");
 
       setEmail("");
       setPassword("");
@@ -42,8 +45,11 @@ const Register = () => {
         text: getFriendlyErrorMessage(error.code),
         type: "error",
       });
+    } finally {
+      setLoading(false);
     }
   };
+
 
   return (
     <div className="flex w-screen h-screen flex-col">
@@ -84,9 +90,26 @@ const Register = () => {
               </div>
             </div>
 
-            <button type="submit" className="rounded-lg bg-blue-dark h-14 text-white hover:bg-blue-400 cursor-pointer">
-              Cadastrar
+            <button
+              type="submit"
+              disabled={loading}
+              className={`rounded-lg h-14 text-white px-6 font-semibold transition ${loading ? "bg-blue-300 cursor-not-allowed" : "bg-blue-dark hover:bg-blue-40 cursor-pointer"
+                }`}
+            >
+              {loading ?
+                (
+                  <div className="flex justify-center items-center gap-2">
+                    <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="white" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="white" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16v-4l-3 3 3 3v-4a8 8 0 01-8-8z" />
+                    </svg>
+                    Cadastrando...
+                  </div>
+                ) : (
+                  "Cadastrar"
+                )}
             </button>
+
           </form>
 
           {message && (

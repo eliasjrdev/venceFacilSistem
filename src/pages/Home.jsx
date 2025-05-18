@@ -1,5 +1,4 @@
 import { LogOut, User, Camera } from "lucide-react";
-import { Button } from "../components/Button";
 import { useEffect, useState } from "react";
 import { auth } from "../firebaseConfig";
 import { signOut } from "firebase/auth";
@@ -39,7 +38,7 @@ function Home() {
   };
 
   return (
-    <div className="justify-center min-h-screen bg-white w-screen">
+    <div className="justify-center min-h-screen bg-white w-screen ">
       <nav className=" font-medium flex flex-row lg:flex-row h-30 w-1/1 justify-between items-center border-b-2 border-blue-dark">
         <div className="text-blue-dark w-72 flex flex-col justify-center items-center">
           <div className="relative group w-20 h-20 mb-2">
@@ -69,10 +68,10 @@ function Home() {
           <span className="text-sm text-center">{userEmail || "Carregando..."}</span>
 
         </div>
-        <div className="flex w-screen justify-between items-center px-8">
+        <div className="flex w-screen justify-between items-center px-8 ">
           <button
             onClick={() => setMenu(0)}
-            className={`px-4 py-2 rounded font-medium transition ${menu === 0 ? "bg-blue-600 text-white" : "bg-gray-100 text-blue-600 hover:bg-blue-100"
+            className={`cursor-pointer px-4 py-2 rounded font-medium transition ${menu === 0 ? "bg-blue-600 text-white" : "bg-gray-100 text-blue-600 hover:bg-blue-100"
               }`}
           >
             Todos os produtos
@@ -80,7 +79,7 @@ function Home() {
 
           <button
             onClick={() => setMenu(1)}
-            className={`px-4 py-2 rounded font-medium transition ${menu === 1 ? "bg-blue-600 text-white" : "bg-gray-100 text-blue-600 hover:bg-blue-100"
+            className={`cursor-pointer px-4 py-2 rounded font-medium transition ${menu === 1 ? "bg-blue-600 text-white" : "bg-gray-100 text-blue-600 hover:bg-blue-100"
               }`}
           >
             Próximos de vencer
@@ -88,7 +87,7 @@ function Home() {
 
           <button
             onClick={() => setMenu(2)}
-            className={`px-4 py-2 rounded font-medium transition ${menu === 2 ? "bg-blue-600 text-white" : "bg-gray-100 text-blue-600 hover:bg-blue-100"
+            className={`cursor-pointer px-4 py-2 rounded font-medium transition ${menu === 2 ? "bg-blue-600 text-white" : "bg-gray-100 text-blue-600 hover:bg-blue-100"
               }`}
           >
             Vencidos
@@ -96,7 +95,7 @@ function Home() {
 
           <button
             onClick={() => setMenu(3)}
-            className={`px-4 py-2 rounded font-medium transition ${menu === 3 ? "bg-blue-600 text-white" : "bg-gray-100 text-blue-600 hover:bg-blue-100"
+            className={`cursor-pointer px-4 py-2 rounded font-medium transition ${menu === 3 ? "bg-blue-600 text-white" : "bg-gray-100 text-blue-600 hover:bg-blue-100"
               }`}
           >
             Cadastrar novos
