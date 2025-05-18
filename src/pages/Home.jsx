@@ -39,7 +39,7 @@ function Home() {
 
   return (
     <div className="justify-center min-h-screen bg-white w-screen ">
-      <nav className=" font-medium flex flex-row lg:flex-row h-30 w-1/1 justify-between items-center border-b-2 border-blue-dark">
+      <nav className=" font-medium flex flex-row lg:flex-row h-30 w-1/1 justify-between items-center border-b-2 border-[#004AAD]">
         <div className="text-blue-dark w-72 flex flex-col justify-center items-center">
           <div className="relative group w-20 h-20 mb-2">
             {profileImage ? (
@@ -104,7 +104,7 @@ function Home() {
         <div className="w-28 h-24  flex justify-center items-center cursor-pointer"
           onClick={handleLogout}
           title="Sair">
-          <LogOut className="w-10 h-10 text-blue-dark hover:text-red-600 transition" />
+          <LogOut className="w-10 h-10 text-[#004AAD] hover:text-red-600 transition" />
         </div>
       </nav>   
       <div>

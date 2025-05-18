@@ -30,7 +30,7 @@ const Login = () => {
 
   return (
     <div className="flex w-screen h-screen flex-col">
-      <div className=" h-14 flex w-full items-center p-8 text-blue-dark font-fonteprimary
+      <div className=" h-14 flex w-full items-center p-8 text-[#004AAD] font-fonteprimary
       text-2xl font-extrabold">
         venceFácil
       </div>
@@ -52,7 +52,7 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="Digite seu e-mail"
-                className={`flex w-full h-14 pl-3 border border-gray-300 rounded-md bg-blue-dark ${message && "border-2 border-red-500"}`}
+                className={`flex w-full h-14 pl-3 border border-gray-300 rounded-md bg-[#004AAD] ${message && "border-2 border-red-500"}`}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -63,7 +63,7 @@ const Login = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Digite sua senha"
-                className={`w-full h-14 p-3 border pr-12 border-gray-300 rounded-md bg-blue-dark ${message && "border-2 border-red-500"}`}
+                className={`w-full h-14 p-3 border pr-12 border-gray-300 rounded-md bg-[#004AAD] ${message && "border-2 border-red-500"}`}
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value)
@@ -89,7 +89,7 @@ const Login = () => {
               disabled={loading}
               className={`cursor-pointer w-full h-14 p-3 rounded-md font-semibold transition ${loading
                   ? "bg-blue-300 cursor-not-allowed"
-                  : "bg-blue-dark hover:bg-blue-400"
+                  : "bg-[#004AAD] hover:bg-blue-400"
                 }`}
             >
               {loading ? (

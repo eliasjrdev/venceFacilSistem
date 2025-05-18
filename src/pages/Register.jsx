@@ -53,14 +53,14 @@ const Register = () => {
 
   return (
     <div className="flex w-screen h-screen flex-col">
-      <div className=" h-14 flex w-full items-center p-8 text-blue-dark font-fonteprimary
+      <div className=" h-14 flex w-full items-center p-8 text-[#004AAD] font-fonteprimary
       text-2xl font-extrabold">
         venceFácil
       </div>
       <div className="h-full flex justify-center items-center">
 
         <div className="bg-white p-8 rounded-lg shadow-[6px_6px_27px_10px_rgba(0,_0,_0,_0.1)] w-96 h-96 flex flex-col justify-center items-center" >
-          <h2 className="text-2xl font-bold text-center text-blue-dark mb-6 " >
+          <h2 className="text-2xl font-bold text-center text-[#004AAD] mb-6 " >
             Criar Conta
           </h2>
 
@@ -70,7 +70,7 @@ const Register = () => {
               placeholder="Digite seu email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className=" bg-blue-dark h-14 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className=" bg-[#004AAD] h-14 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
             <div className="relative">
@@ -79,7 +79,7 @@ const Register = () => {
                 placeholder="Crie uma senha"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="bg-blue-dark h-14 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="bg-[#004AAD] h-14 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 required
               />
               <div
@@ -93,7 +93,7 @@ const Register = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`rounded-lg h-14 text-white px-6 font-semibold transition ${loading ? "bg-blue-300 cursor-not-allowed" : "bg-blue-dark hover:bg-blue-40 cursor-pointer"
+              className={`rounded-lg h-14 text-white px-6 font-semibold transition ${loading ? "bg-blue-300 cursor-not-allowed" : "bg-[#004AAD] hover:bg-blue-400 cursor-pointer"
                 }`}
             >
               {loading ?

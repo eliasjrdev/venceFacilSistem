@@ -174,7 +174,7 @@ export function ProductTable({ filter }) {
                   )}
                 </td>
 
-                <td className="border p-2 flex justify-center items-center gap-2">
+                <td className="p-2 flex justify-center items-center gap-2">
                   {isEditing ? (
                     <>
                       <button
@@ -201,7 +201,7 @@ export function ProductTable({ filter }) {
                             dateValidity: validade.format("YYYY-MM-DD"),
                           });
                         }}
-                        className="bg-blue-100 text-blue-700 px-3 py-1 rounded hover:bg-blue-600 hover:text-white transition flex items-center gap-1"
+                        className="bg-blue-100 text-blue-700 px-3 py-1 rounded hover:bg-blue-600 hover:text-white transition flex items-center gap-1 cursor-pointer"
                       >
                         <Pencil className="w-4 h-4" />
                         Editar
@@ -209,7 +209,7 @@ export function ProductTable({ filter }) {
 
                       <button
                         onClick={() => handleDelete(p.id)}
-                        className="bg-red-100 text-red-700 px-3 py-1 rounded hover:bg-red-600 hover:text-white transition flex items-center gap-1"
+                        className="bg-red-100 text-red-700 px-3 py-1 rounded hover:bg-red-600 hover:text-white transition flex items-center gap-1 cursor-pointer"
                       >
                         <Trash2 className="w-4 h-4" />
                         Excluir
