@@ -106,12 +106,14 @@ function Home() {
           title="Sair">
           <LogOut className="w-10 h-10 text-[#004AAD] hover:text-red-600 transition" />
         </div>
-      </nav>   
-      <div>
-        {menu === 3 && <RegisterProducts />}
-        {[0, 1, 2].includes(menu) && <ProductTable filter={menu} />}
+      </nav>
+      <div className="flex-grow p-4">
+        {menu === 3 ? (
+          <RegisterProducts />
+        ) : (
+          <ProductTable filter={menu} />
+        )}
       </div>
-
     </div>
   );
 };
