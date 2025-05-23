@@ -6,8 +6,8 @@ import { Pencil, Trash2 } from "lucide-react";
 
 export function ProductTable({ filter }) {
   const [products, setProducts] = useState([]);
-  const [editingId, setEditingId] = useState(null);
   const [editValues, setEditValues] = useState({
+    id: null,
     productName: "",
     productLot: "",
     dateValidity: "",
@@ -40,7 +40,7 @@ export function ProductTable({ filter }) {
     return true;
   });
 
-  async function handleSave(id) {
+  async function handleSave() {
     const parsed = dayjs(editValues.dateValidity, "YYYY-MM-DD", true);
     if (!parsed.isValid()) {
       alert("Data inválida");
@@ -48,7 +48,7 @@ export function ProductTable({ filter }) {
     }
 
     try {
-      const ref = doc(db, "products", id);
+      const ref = doc(db, "products", editValues.id);
       await updateDoc(ref, {
         productName: editValues.productName.trim(),
         productLot: editValues.productLot.trim(),
@@ -56,18 +56,18 @@ export function ProductTable({ filter }) {
       });
 
       const updated = products.map(p =>
-        p.id === id
+        p.id === editValues.id
           ? {
-              ...p,
-              productName: editValues.productName.trim(),
-              productLot: editValues.productLot.trim(),
-              dateValidity: parsed.toDate(),
-            }
+            ...p,
+            productName: editValues.productName.trim(),
+            productLot: editValues.productLot.trim(),
+            dateValidity: parsed.toDate(),
+          }
           : p
       );
 
       setProducts(updated);
-      setEditingId(null);
+      setEditValues(null)
     } catch (e) {
       alert("Erro ao salvar: " + e.message);
     }
@@ -94,7 +94,6 @@ export function ProductTable({ filter }) {
         </thead>
         <tbody>
           {filtered.map((p) => {
-            const isEditing = editingId === p.id;
             const validade = dayjs(p.dateValidity?.toDate ? p.dateValidity.toDate() : p.dateValidity);
             const diff = validade.diff(today, "day");
 
@@ -111,7 +110,7 @@ export function ProductTable({ filter }) {
             return (
               <tr key={p.id} className="border hover:bg-gray-100 transition">
                 <td className="border p-2">
-                  {isEditing ? (
+                  {editValues && editValues.id === p.id ? (
                     <input
                       value={editValues.productName}
                       onChange={e => setEditValues({ ...editValues, productName: e.target.value })}
@@ -122,7 +121,7 @@ export function ProductTable({ filter }) {
                   )}
                 </td>
                 <td className="border p-2">
-                  {isEditing ? (
+                  {editValues && editValues.id === p.id ? (
                     <input
                       type="date"
                       value={editValues.dateValidity}
@@ -134,7 +133,7 @@ export function ProductTable({ filter }) {
                   )}
                 </td>
                 <td className="border p-2">
-                  {isEditing ? (
+                  {editValues && editValues.id === p.id ? (
                     <input
                       value={editValues.productLot}
                       onChange={e => setEditValues({ ...editValues, productLot: e.target.value })}
@@ -145,7 +144,7 @@ export function ProductTable({ filter }) {
                   )}
                 </td>
                 <td className="border p-2 text-center">
-                  {isEditing ? (
+                  {editValues && editValues.id === p.id ? (
                     <span className="text-gray-400">Editando...</span>
                   ) : (
                     <span
@@ -156,16 +155,16 @@ export function ProductTable({ filter }) {
                   )}
                 </td>
                 <td className="border p-2 flex justify-center gap-2">
-                  {isEditing ? (
+                  {editValues && editValues.id === p.id ? (
                     <>
                       <button
-                        onClick={() => handleSave(p.id)}
+                        onClick={() => handleSave()}
                         className="bg-green-100 text-green-700 px-3 py-1 rounded hover:bg-green-600 hover:text-white transition"
                       >
                         Salvar
                       </button>
                       <button
-                        onClick={() => setEditingId(null)}
+                        onClick={() => setEditValues(null)}
                         className="bg-gray-100 text-gray-700 px-3 py-1 rounded hover:bg-gray-400 hover:text-white transition"
                       >
                         Cancelar
@@ -174,14 +173,7 @@ export function ProductTable({ filter }) {
                   ) : (
                     <>
                       <button
-                        onClick={() => {
-                          setEditingId(p.id);
-                          setEditValues({
-                            productName: p.productName,
-                            productLot: p.productLot,
-                            dateValidity: validade.format("YYYY-MM-DD"),
-                          });
-                        }}
+                        onClick={() => setEditValues({ ...p, dateValidity: validade.format("YYYY-MM-DD") })}
                         className="flex items-center gap-1 bg-blue-100 text-blue-700 px-3 py-1 rounded hover:bg-blue-600 hover:text-white transition"
                       >
                         <Pencil className="w-4 h-4" />
