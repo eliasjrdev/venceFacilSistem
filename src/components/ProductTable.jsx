@@ -58,11 +58,11 @@ export function ProductTable({ filter }) {
       const updated = products.map(p =>
         p.id === editValues.id
           ? {
-            ...p,
-            productName: editValues.productName.trim(),
-            productLot: editValues.productLot.trim(),
-            dateValidity: parsed.toDate(),
-          }
+              ...p,
+              productName: editValues.productName.trim(),
+              productLot: editValues.productLot.trim(),
+              dateValidity: parsed.toDate(),
+            }
           : p
       );
 
@@ -173,7 +173,7 @@ export function ProductTable({ filter }) {
                   ) : (
                     <>
                       <button
-                        onClick={() => setEditValues({ ...p, dateValidity: validade.format("YYYY-MM-DD") })}
+                        onClick={() => setEditValues({...p, dateValidity: validade.format("YYYY-MM-DD")})}
                         className="flex items-center gap-1 bg-blue-100 text-blue-700 px-3 py-1 rounded hover:bg-blue-600 hover:text-white transition"
                       >
                         <Pencil className="w-4 h-4" />

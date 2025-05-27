@@ -1,4 +1,10 @@
 @import "tailwindcss";
+html {
+  scroll-behavior: smooth;
+}
+.perspective {
+  perspective: 1000px;
+}
 
 #root{ 
   --color-blue-dark:#004AAD;
