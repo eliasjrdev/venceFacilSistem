@@ -12,7 +12,6 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-
   const getFriendlyErrorMessage = (errorCode) => {
     const errorMessages = {
       "auth/email-already-in-use": "❌ Este e-mail já está cadastrado. ❌ ",

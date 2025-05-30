@@ -63,7 +63,7 @@ export function RegisterProducts() {
           value={dateValidity}
           onChange={(e) => setDateValidity(e.target.value)}
           name="dateValidity"
-          type="date"
+          type="datetime"
           required
         />
 
