@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -80,16 +81,22 @@ const Login = () => {
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </div>
-            </div>
 
+            </div>
+            <p className="text-center text-sm text-blue-600">
+              Esqueceu sua senha?{" "}
+              <Link to="/esqueci-senha" className="text-blue-600 hover:underline ">
+                Clique para redefinir
+              </Link>
+            </p>
 
 
             <button
               type="submit"
               disabled={loading}
               className={`cursor-pointer w-full h-14 p-3 rounded-md font-semibold transition ${loading
-                  ? "bg-blue-300 cursor-not-allowed"
-                  : "bg-[#004AAD] hover:bg-blue-400"
+                ? "bg-blue-300 cursor-not-allowed"
+                : "bg-[#004AAD] hover:bg-blue-400"
                 }`}
             >
               {loading ? (
