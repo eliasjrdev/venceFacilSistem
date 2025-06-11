@@ -13,7 +13,7 @@ const PrivateRoute = ({ children }) => {
       setLoading(false);
     });
 
-    return () => unsubscribe(); // limpa o listener quando o componente desmontar
+    return () => unsubscribe(); 
   }, []);
 
   if (loading) return <p className="text-center mt-20">Carregando...</p>;

@@ -2,8 +2,10 @@ import { useState, useRef } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { useModals } from '@mantine/modals';
 
 const EsqueciSenha = () => {
+    const modals = useModals();
     const [email, setEmail] = useState("")
     const [mensagem, setMensagem] = useState("")
     const [loading, setLoading] = useState(false)
@@ -16,12 +18,32 @@ const EsqueciSenha = () => {
         setLoading(true)
 
         try {
-            await sendPasswordResetEmail(auth, email)
-            setMensagem("📧 Se o e-mail que você informou estiver cadastrado, você receberá um link para redefinir sua senha.");
+            await sendPasswordResetEmail(auth, email);
             setEmail("");
+
+            modals.openConfirmModal({
+                title: '📧 Verifique seu e-mail',
+                children: (
+                    <p>Se o e-mail informado estiver cadastrado, você receberá um link para redefinir sua senha.</p>
+                ),
+                labels: { confirm: 'OK' },
+                onConfirm: () => { },
+                centered: true,
+            });
+
         } catch (error) {
-            console.error("Erro ao enviar link de redefinição:", error);
-            setMensagem("❌ Ocorreu um erro. Verifique o e-mail digitado ou tente mais tarde.");
+            console.error("Erro:", error);
+
+            modals.openConfirmModal({
+                title: '❌ Erro ao enviar e-mail',
+                children: (
+                    <p>Ocorreu um erro. Verifique o e-mail digitado ou tente mais tarde.</p>
+                ),
+                labels: { confirm: 'OK' },
+                onConfirm: () => { },
+                centered: true,
+            });
+
         } finally {
             setLoading(false);
         }

@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import PrivateRoute from "./pages/PrivateRoute";
-import { LandingPage } from "./pages/LandingPage";
+import LandingPage  from "./pages/LandingPage";
 import VerifiqueSeuEmail from "./pages/VerifiqueSeuEmail";
 import EsqueciSenha from './pages/EsqueciSenha';
 const App = () => {
@@ -31,4 +31,6 @@ const App = () => {
 };
 
 export default App;
+
+
 
