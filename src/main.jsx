@@ -1,16 +1,18 @@
-import { MantineProvider } from '@mantine/core';
-import { ModalsProvider } from '@mantine/modals';
-import { Notifications } from '@mantine/notifications';
-import { createRoot } from 'react-dom/client';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import App from './App';
 
-createRoot(document.getElementById('root')).render(
-  <MantineProvider withNormalizeCSS withGlobalStyles>
-    <Notifications />
-    <ModalsProvider>
-      <App />
-    </ModalsProvider>
-  </MantineProvider>
+import { MantineProvider } from '@mantine/core';
+import { ModalsProvider } from '@mantine/modals';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <MantineProvider withGlobalStyles withNormalizeCSS>
+      <ModalsProvider>
+        <App />
+      </ModalsProvider>
+    </MantineProvider>
+  </React.StrictMode>
 );
 
 
