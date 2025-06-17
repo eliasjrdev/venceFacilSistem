@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { auth } from "../firebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -27,25 +27,38 @@ const Register = () => {
     return errorMessages[errorCode] || errorMessages.default;
   };
 
-
   const handleRegister = async (e) => {
     e.preventDefault();
     setMessage("");
     setLoading(true);
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/home");
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      try {
+        await sendEmailVerification(user);
+        setMessage({
+          text: "✅ Verificação enviada! Confira seu e-mail antes de fazer login.",
+          type: "success",
+        });
+      } catch (verifError) {
+        console.error("Erro ao enviar verificação:", verifError);
+        setMessage({
+          text: "Usuário criado, mas falha ao enviar e-mail de verificação. Tente novamente mais tarde.",
+          type: "error",
+        });
+      }
 
       setEmail("");
       setPassword("");
+      navigate("/verifique-seu-email");
     } catch (error) {
+      console.error("Erro ao criar conta:", error);
       setMessage({
         text: getFriendlyErrorMessage(error.code),
         type: "error",
       });
-    } finally {
-      setLoading(false);
     }
   };
 
